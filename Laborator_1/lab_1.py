@@ -1,14 +1,21 @@
 from math import cos
 
-x = int(input("Introduceti cifra x = "))
-if x == " ":
-    print("y este null")
+while True:
+    x = input("Introduceti cifra x = ")
+    try:
+        x = int(x)
+    except ValueError:
+        print("Valoarea lui x nu poate fi nula")
+        continue
 
-y = (cos(x) + 7 * x) / ((x * x * x * x) - 3 * (x ** 2))
-
-if y < 0:
-    print("y este negativ, y = ", y)
-elif y is None:
-    print("y este nul")
-else:
-    print("y este pozitiv, y = ", y)
+    if x != 0:
+        y = (cos(x) + 7 * x) / ((x * x * x * x) - 3 * (x ** 2))
+        if y < 0:
+            print("y este negativ, y =", round(y, 2))
+            break
+        else:
+            print("y este pozitiv, y =", round(y, 2))
+            break
+    else:
+        print("y nu poate fi calculat cu valoarea x = 0")
+        break
