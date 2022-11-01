@@ -1,1 +1,1 @@
-1alexbotnaristrasenicreanga/10683273748.5
+"nr", 1, "nume", alex, "prenume", botnari, "localitatea", straseni, "adresa", creanga/1, "telefon", 68327374, "nota medie", 8.4
