@@ -1,78 +1,106 @@
-import sys
-import fileinput
-import ast
-
-
-def convert_list(list1):
-    init = iter(list1)
-    res_dct = dict(zip(init, init))
-    return res_dct
+import pickle
+# biblioteca de serializare si deserializare a obiectelor pe disc
 
 
 def introducere_date():
     nr, nume, prenume, localitate, adresa, telefon, nota_medie = input("Introduceti datele prin virgula:").split(",")
-    user_list = ['nr, ', nr, ', nume, ', nume, ', prenume, ', prenume, ', localitatea, ', localitate,
-                 ', adresa, ', adresa, ', telefon, ', telefon, ', nota medie, ', nota_medie]
-    return user_list
+    user_dict = {'nr': nr, 'nume': nume, 'prenume': prenume, 'localitatea': localitate,
+                 'adresa': adresa, 'telefon': telefon, 'nota medie': nota_medie}
+    return user_dict
 
 
 def creare_fisier():
-    file = open("user_file.txt", 'w')
-    for key, value in introducere_date().items():
-        file.writelines(" "+key + " : " + value + ", ")
+    file = open("user_file.txt", "wb")
+    pickle.dump(introducere_date(), file)
     file.close()
     print("File created succesfull!")
 
 
 def afisare_continut():
-    file = open("user_file.txt", 'r+')
-    print(file.read())
+    file = open('user_file.txt', 'rb')
+    try:
+        while True:
+            data = pickle.load(file)
+            print(data)
+    except EOFError:
+        pass
     file.close()
 
 
 def adaugare_date():
-    file = open("user_file.txt", 'a+')
-    for data in introducere_date():
-        file.writelines(data)
+    file = open("user_file.txt", "ab")
+    pickle.dump(introducere_date(), file)
     print("Data added succesfull!")
     file.close()
 
 
 def modificare_date():
-    # am folosit biblioteca fileinput si sys
-    old_value = input("Introduceti valoarea de modificat: ")
-    new_value = input("Introduceti valoarea noua: ")
-    for line in fileinput.input("user_file.txt", inplace=True):
-        line = line.replace(old_value, new_value)
-        sys.stdout.write(line)
+    file = open('user_file.txt', 'rb')
+    lst = []
+    while True:
+        try:
+            rec = pickle.load(file)
+            lst.append(rec)
+        except EOFError:
+            break
+    file.close()
+
+    nr = input("Introduceti nr inregistrarii de modificat: ")
+    nume = input("Introduceti numele: ")
+    prenume = input("Introduceti prenumele: ")
+    localitatea = input("Introduceti localitatea: ")
+    adresa = input("Introduceti adresa: ")
+    telefon = input("Introduceti telefon: ")
+    nota_medie = float(input("Introduceti nota_medie: "))
+    for i in range(len(lst)):
+        if lst[i]['nr'] == nr:
+            lst[i]['nume'] = nume
+            lst[i]['prenume'] = prenume
+            lst[i]['localitatea'] = localitatea
+            lst[i]['adresa'] = adresa
+            lst[i]['telefon'] = telefon
+            lst[i]['nota_medie'] = nota_medie
+    file = open('user_file.txt', 'wb')
+    for i in lst:
+        pickle.dump(i, file)
+    file.close()
 
 
 def eliminare_date():
-    f = open("user_file.txt", "r+")
-    f.seek(0)
-    f.truncate()
-    print("Fisierul a fost curatat complet!")
+    file = open('user_file.txt', 'rb')
+    lst = []
+    while True:
+        try:
+            rec = pickle.load(file)
+            lst.append(rec)
+        except EOFError:
+            break
+    file.close()
+
+    nr = input("Introduceti numarul inregistrarii ce doriti sa stergeti: ")
+    file = open('user_file.txt', 'wb')
+    for i in lst:
+        if i['nr'] == nr:
+            continue
+        pickle.dump(i, file)
+    file.close()
+    print("Fisierul a fost curatat de inregistrarea nr: ", nr)
 
 
 def prelucrare_date():
-    user_list = []
-    # file = open("user_file.txt", 'r+')
-    with open('user_file.txt', 'rt') as file:
-        for line in file:
-            user_list.append(line.replace("'", ""))
-
-    user_dict = convert_list(user_list)
-    # print(user_list[6])
-    print('List>>>', user_list)
-    print('Dict>>>', user_dict)
-    # De afișat studenții cu nota media mai mică decât 5
-
-
-    # if nota_medie < 5:
-    #     print(file.read())
-    #     file.close()
-    # else:
-    #     print("Nota este trecatoare!")
+    file = open("user_file.txt", 'rb')
+    try:
+        while True:
+            data = pickle.load(file)
+            user_dict = data
+            nota_medie = float(user_dict['nota medie'])
+            if nota_medie < 5:
+                print(user_dict)
+            else:
+                pass
+    except EOFError:
+        pass
+    file.close()
 
 
 while True:
