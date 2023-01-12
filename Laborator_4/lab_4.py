@@ -67,16 +67,27 @@ def average(matrix):
 #
 #     matrix_tuple.append(user_tuple)
 #
-# print('Matrice : ', matrix_tuple)
-# print('Media aritmetica : ', average(matrix=matrix_tuple))
+# # convertam lista in tuple
+# user_tuple = tuple(matrix_tuple)
+# print('Matrice : ', user_tuple)
+# print('Media aritmetica : ', average(matrix=user_tuple))
 
 # atribuire directa
 # print(average(matrix=((1, 2, 3, 4), (5, 6, 7, 8))))
 
 # atribuire random
-user_tuple = ()
-for i in range(0, 5):
-    user_tuple += (random.randint(1, 10),)
-    print(user_tuple[i])
+user_list = []
+for j in range(random.randint(2, 5)):
+    custom_list = []
+    for _ in range(random.randint(2, 5)):
+        number = random.randint(1, 10)
+        custom_list.append(number)
+
+    if custom_list:
+        # convertam in tuple
+        custom_tuple = tuple(custom_list)
+        user_list.append(custom_tuple)
+# convertam in tuple
+user_tuple = tuple(user_list)
 print(user_tuple)
 print(average(matrix=user_tuple))
