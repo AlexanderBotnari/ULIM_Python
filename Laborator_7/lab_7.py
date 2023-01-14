@@ -51,7 +51,7 @@ def modificare_date():
     localitatea = input("Introduceti localitatea: ")
     adresa = input("Introduceti adresa: ")
     telefon = input("Introduceti telefon: ")
-    nota_medie = float(input("Introduceti nota_medie: "))
+    nota_medie = float(input("Introduceti nota medie: "))
     for i in range(len(lst)):
         if lst[i]['nr'] == nr:
             lst[i]['nume'] = nume
@@ -59,7 +59,7 @@ def modificare_date():
             lst[i]['localitatea'] = localitatea
             lst[i]['adresa'] = adresa
             lst[i]['telefon'] = telefon
-            lst[i]['nota_medie'] = nota_medie
+            lst[i]['nota medie'] = nota_medie
     file = open('user_file.txt', 'wb')
     for i in lst:
         pickle.dump(i, file)
@@ -105,13 +105,16 @@ def prelucrare_date():
 
 while True:
     print("###################### Main Menu ######################")
-    menu_value = int(input("1 - Creare fisier\n"
+    menu_value = int(input("Alegeti optiunea :\n"
+                           "1 - Creare fisier\n"
                            "2 - Afisare continut\n"
-                           "3 - Adaugare date\n"
+                           "3 - Adaugare date (nr, nume, prenume, localitate, adresa, telefon, nota_medie)\n"
                            "4 - Modificare date\n"
                            "5 - Eliminare date\n"
-                           "6 - Prelucrare date dupa conditie\n"
-                           "7 - Iesire din program\n"))
+                           "6 - Afisare studenti cu nota mai mica ca 5\n"
+                           "7 - Iesire din program\n"
+                           "Introduceti optiunea aici >>> "))
+
     if menu_value == 1:
         creare_fisier()
         continue
