@@ -46,5 +46,5 @@ user_dict = {"Tema": "Programarea C++",
 # print(user_dict.values())
 
 # curata dictionarul
-user_dict.clear()
-print(user_dict)
+# user_dict.clear()
+# print(user_dict)

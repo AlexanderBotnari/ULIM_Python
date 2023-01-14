@@ -16,11 +16,11 @@ def media_geometrica_var(**kwargs):
 try:
     x = 6
     y = 6
-    print("Media geometrica = ", media_geometrica(a=x, b=y))
+    # print("Media geometrica = ", media_geometrica(a=x, b=y))
     # x = int(input("Introduceti primul numar "))
     # y = int(input("Introduceti al doilea numar "))
     # print("Media geometrica = ", media_geometrica(a=x, b=int(y)))
-    # print("Media geometrica = ", media_geometrica_var(a=x, b=y))
+    print("Media geometrica = ", media_geometrica_var(a=x, b=y))
     # print("Media geometrica = ", media_geometrica_var(a=7, b=8))
 except ValueError:
     print("Va rugam sa introduceti doar cifre!")
